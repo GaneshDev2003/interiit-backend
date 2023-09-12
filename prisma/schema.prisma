@@ -31,6 +31,7 @@ model PSTeam {
 model IIT {
   id       Int      @id @default(autoincrement())
   name     String   @unique
+  password String
   ps_teams PSTeam[]
 }
 
