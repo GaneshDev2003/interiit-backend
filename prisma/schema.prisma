@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TeamMember {
+  id        Int    @id @default(autoincrement())
+  name      String @unique
+  email     String
+  photo_url String
+  team      PSTeam @relation(fields: [team_id], references: [id])
+  team_id   Int    @unique
+}
+
+model PSTeam {
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
+  ps_type      PSType
+  team_members TeamMember[]
+  iit          IIT          @relation(fields: [iit_id], references: [id])
+  iit_id       Int          @unique
+}
+
+model IIT {
+  id       Int      @id @default(autoincrement())
+  name     String   @unique
+  ps_teams PSTeam[]
+}
+
+enum PSType {
+  HIGH
+  MID
+  LOW
+  NO
+}
