@@ -12,17 +12,21 @@ datasource db {
 
 model TeamMember {
   id        Int    @id @default(autoincrement())
-  name      String @unique
+  name      String
   email     String
   photo_url String
+  phone     String
+  discordId String
+  idCardUrl String
+  tshirt    String
+  foodPref  String
   team      PSTeam @relation(fields: [team_id], references: [id])
   team_id   Int    @unique
 }
 
 model PSTeam {
   id           Int          @id @default(autoincrement())
-  name         String       @unique
-  ps_type      PSType
+  ps_id        String
   team_members TeamMember[]
   iit          IIT          @relation(fields: [iit_id], references: [id])
   iit_id       Int          @unique
@@ -33,6 +37,19 @@ model IIT {
   name     String   @unique
   password String
   ps_teams PSTeam[]
+  role     UserRole @default(PARTICIPANT)
+}
+
+model PS {
+  id      Int    @id @default(autoincrement())
+  name    String
+  content String
+  psType  PSType
+}
+
+enum UserRole {
+  PARTICIPANT
+  ADMIN
 }
 
 enum PSType {

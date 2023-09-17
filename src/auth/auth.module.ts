@@ -23,10 +23,15 @@ import {
     LocalStrategy
   } from 'src/strategy/local.strategy';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { PassportModule } from '@nestjs/passport';
+import { SessionSerializer } from './utils/SessionSerializer';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { IitModule } from 'src/iit/iit.module';
   
   @Module({
     imports: [
      PrismaModule,
+     IitModule,
      JwtModule.register({
         secret: jwtConstants.secret,
         signOptions: {
@@ -35,6 +40,6 @@ import { PrismaModule } from 'src/prisma/prisma.module';
       }),
     ],
     controllers: [AuthController],
-    providers: [AuthService, IitService, LocalStrategy, HashService],
+    providers: [AuthService,  IitService, LocalStrategy, HashService, SessionSerializer],
   })
-  export class AuthModule {}
+  export class AuthModule {} 

@@ -19,6 +19,7 @@ import {
     }
   
     async validate(username: string, password: string): Promise < any > {
+      console.log("Inside Validate strategy")
       const user = await this.authService.validateUser(username, password);
       if (!user) {
         throw new UnauthorizedException({

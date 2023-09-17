@@ -11,7 +11,8 @@ import { LocalStrategy } from 'src/strategy/local.strategy';
 
 @Module({
   controllers: [IitController],
-  providers: [IitService, HashService, AuthService, JwtStrategy, LocalStrategy],
+  providers: [ AuthService, IitService, HashService,  JwtStrategy, LocalStrategy],
+  exports: [IitService],
   imports: [PrismaModule, JwtModule.register({
     secret: jwtConstants.secret,
     signOptions:{

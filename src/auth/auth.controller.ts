@@ -4,16 +4,25 @@ import {AuthService} from './auth.service';
     Request,
     UseGuards,
     Post,
-    Body
+    Body,
+    Get,
+    Session
   } from '@nestjs/common';
-  import {AuthGuard} from '@nestjs/passport';
-  
+import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from './utils/LocalGuard';
+
   @Controller('auth')
   export class AuthController {
     constructor(private authService: AuthService) {}
-    //@UseGuards(AuthGuard('local'))
+    @UseGuards(LocalAuthGuard)
     @Post('login')
-    login(@Body() user:any) {
-      return this.authService.login(user);
+    login(@Request() req:any) {
+      console.log('Entered login route');
+      return this.authService.login(req);
+    }
+    @Get('')
+    async getAuthSession(@Session() session: Record<string, any>){
+      session.authenticated = true;
+      return session
     }
 }
