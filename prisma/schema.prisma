@@ -34,11 +34,17 @@ model PSTeam {
 }
 
 model IIT {
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  password String
-  ps_teams PSTeam[]
-  role     UserRole @default(PARTICIPANT)
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  password   String
+  ps_teams   PSTeam[]
+  fee_status feeStatus
+  role       UserRole  @default(PARTICIPANT)
+}
+
+enum feeStatus {
+  PENDING
+  APPROVED
 }
 
 model PS {
