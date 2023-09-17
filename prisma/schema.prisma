@@ -30,7 +30,6 @@ model PSTeam {
   team_members TeamMember[]
   iit          IIT          @relation(fields: [iit_id], references: [id])
   iit_id       Int          @unique
-  PS           PS?          @relation(fields: [pSId], references: [id])
   pSId         String?
 }
 
@@ -59,14 +58,6 @@ enum PSType {
   MID
   LOW
   NO
-}
-
-model PS {
-  id     String   @unique
-  PSName String
-  psType PSType
-  Field  String
-  PSTeam PSTeam[]
 }
 
 enum feeStatus {
